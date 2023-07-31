@@ -8,23 +8,29 @@
 import UIKit
 
 class ContactTableViewCell: UITableViewCell {
+    
+    
+    //UI Elements
     var nameLabel: UILabel!
     var logoImageView: UIImageView!
     var imageDownloadTask: URLSessionDataTask?
     var arrowIcon: UIImageView!
 
 
+    // Initialize the cell with its UI elemtns
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        //Label to diplay the contact's name
         nameLabel = UILabel(frame: CGRect(x: 100, y: 10, width: 200, height: 30))
         contentView.addSubview(nameLabel)
         
+        //ImageView to display the contact's logo or initials
         logoImageView = UIImageView(frame: CGRect(x: 40, y: 2, width: 40, height: 40))
         logoImageView.contentMode = .scaleAspectFit
         contentView.addSubview(logoImageView)
         
-       
+       //IMageView to display an arrow icon
         arrowIcon = UIImageView(image: UIImage(systemName: "chevron.right"))
         arrowIcon.tintColor = .gray
         arrowIcon.frame = CGRect(x: 350, y: 12, width: 20, height: 20)
@@ -38,6 +44,8 @@ class ContactTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been impemented")
     }
     
+    
+    //Configure the cell with the provided contact data
     func configureCell(with contact: ContactModel) {
         nameLabel.text = "\(contact.firstName )  \(contact.lastName )"
         
@@ -110,6 +118,8 @@ class ContactTableViewCell: UITableViewCell {
     }
     
     
+    
+    //function to convert a given image into a circular image
     func circularImage(_ image: UIImage) -> UIImage? {
         let imageView = UIImageView(frame: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)))
         imageView.contentMode = .scaleAspectFill

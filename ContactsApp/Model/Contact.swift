@@ -9,23 +9,26 @@ import Foundation
 
 
 struct Contacts: Decodable {
-    var id: Int
+    
+    //Properties
+    var id: Int // Uniquie identifier for the contact
     var firstName: String
     var lastName: String
-    var phoneNumber: String?
-    var email: String?
-    var isActive: Bool
+    var phoneNumber: String? // (optional)
+    var email: String? // (optional)
+    var isActive: Bool //Indicates whether the contact is active
     
 }
 
 
+//Represents the response containing an array of COntacts
 struct ContactsResponse: Decodable {
-    var data: [Contacts]
+    var data: [Contacts] // Array of COntacts objects
 }
 
 
 struct User: Codable {
-    let id: Int
+    let id: Int  // Uniquie identifier for the contact
     let name: String
     let email: String
     let gender: String

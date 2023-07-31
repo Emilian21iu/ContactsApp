@@ -9,13 +9,20 @@ import UIKit
 
 class ContactListViewController: UIViewController {
     
+    
+    
+    //Properties
     //var tableView: UITableView!
     var userView: UITableView!
     var viewModel: ContactListViewModel!
     // var viewModel = ContactsViewModel()
     
+    
+    //Array o store the fetched users
     var users: [User] = []
 
+    
+    //Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -23,10 +30,10 @@ class ContactListViewController: UIViewController {
         
        viewModel = ContactListViewModel()
 
-       setupUI()
-       setupUserTableView()
-       getUsers()
-       getContact()
+       setupUI()// Set up the user interface elements
+       setupUserTableView() // Set up the userView
+       getUsers() //  Fetch user data from the API and filter inactive users
+       getContact()//Fetch contact data from the API
        navigationController?.navigationBar.prefersLargeTitles = true
 
     }
@@ -41,6 +48,7 @@ class ContactListViewController: UIViewController {
     
     
    
+    //Networking Methods
     private func getUsers(){
         // API request and filter inactive users
         APIManager.shared.fetchUsersFromAPI {
@@ -55,12 +63,15 @@ class ContactListViewController: UIViewController {
         }
     }
     
+    //fetch contact data fro the API
     private func getContact(){
         APIManager.shared.fetchContacts {_ in
-         
+         //Handle contacts response, if needed
         }
     }
     
+    
+    //UI setup methods
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -80,7 +91,7 @@ class ContactListViewController: UIViewController {
     }()
     
     private func setupUI() {
-      
+      // add the headerTextView and tableView as subviews
         view.addSubview(tableView)
         view.addSubview(headerTextView)
         
@@ -106,7 +117,7 @@ class ContactListViewController: UIViewController {
         tableView.tableFooterView = UIView()
         tableView.register(ContactTableViewCell.self, forCellReuseIdentifier: "ContactCell")
  
-
+     //Set up the right bar button
         let image = UIImage(systemName: "person.fill.badge.plus")
         let addButton = UIBarButtonItem(image: image, style: UIBarButtonItem.Style.done, target: self, action: #selector(addNewContactButtonTapped))
         addButton.tintColor = .gray
@@ -124,6 +135,7 @@ class ContactListViewController: UIViewController {
       
     }
     
+    //Button action method
     @objc func addNewContactButtonTapped(){
         let contactDetailsVC = ContactDetailsViewController()
         navigationController?.pushViewController(contactDetailsVC, animated: true)
@@ -133,9 +145,10 @@ class ContactListViewController: UIViewController {
 }
 
 
+//UITableView  DataSource and Delegate Methods
 extension ContactListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.contacts.count
+        return viewModel.contacts.count // return the number of contacts in the viewModel
     }
     
     
@@ -148,6 +161,7 @@ extension ContactListViewController: UITableViewDataSource, UITableViewDelegate 
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Handle the action when a contact cell is selected
         let selectedContact = viewModel.contacts[indexPath.row]
         let contactDetailsVC = ContactDetailsViewController(contact: selectedContact)
         navigationController?.pushViewController(contactDetailsVC, animated: true)

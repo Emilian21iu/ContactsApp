@@ -15,10 +15,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
+        //Ensure the scene is of type UIWindowScene: if not, return and do nothing
         guard let windowScene = (scene as? UIWindowScene) else { return }
+        //Create a new UIWindows instance
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
+        //Set the UIWindows's windowScene
         window?.windowScene = windowScene
+        // Set the rootViewController of the UIWindow to be an instance of UINavigationController
         window?.rootViewController = UINavigationController(rootViewController: ContactListViewController())
+        //Make the UIWindows key and visible on the screen
         window?.makeKeyAndVisible()
         
     }

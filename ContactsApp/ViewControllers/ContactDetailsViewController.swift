@@ -9,7 +9,7 @@ import UIKit
 
 class ContactDetailsViewController: UIViewController {
     
-    
+    //UI Elements
     var firstNameTextField: UITextField!
     var lastNameTextField: UITextField!
     var phoneNumberTextField: UITextField!
@@ -17,11 +17,19 @@ class ContactDetailsViewController: UIViewController {
     var mainActionButton: UIButton!
     var deleteButon: UIButton!
     
+    
+    //ViewModel for handling contact details
     var viewModel: ContactDetailsViewModel!
     
+    
+    //The contact object to be edited (nil if its a new contact)
     var contact: ContactModel?
+    
+    //Flag to indicate if the view is in edit mode or note
     var isEditMode = false
     
+    
+    //Initialize the view controller with a contact object
     init(contact: ContactModel? = nil){
         self.contact = contact
         super.init(nibName: nil, bundle: nil)
@@ -43,6 +51,8 @@ class ContactDetailsViewController: UIViewController {
         viewModel  = ContactDetailsViewModel()
     }
     
+    
+    //show update button in the navigation bar
     func updateTapContact(){
         let image = UIImage(systemName: "arrow.down.app.fill")
         let addButton = UIBarButtonItem(image: image, style: UIBarButtonItem.Style.done, target: self, action: #selector(mainActionButtonTapped))
@@ -50,6 +60,7 @@ class ContactDetailsViewController: UIViewController {
         navigationItem.leftBarButtonItem = addButton
     }
     
+    //show add button in the navigation bar
     func addTapContact(){
         let image = UIImage(systemName: "plus.circle")
         let addButton = UIBarButtonItem(image: image, style: UIBarButtonItem.Style.done, target: self, action: #selector(mainActionButtonTapped))
@@ -57,6 +68,8 @@ class ContactDetailsViewController: UIViewController {
         navigationItem.rightBarButtonItem = addButton
     }
     
+    
+    //show delete button in the navigation bar
     func deleteTapContact(){
         let image = UIImage(systemName: "xmark.circle")
         let addButton = UIBarButtonItem(image: image, style: UIBarButtonItem.Style.done, target: self, action: #selector(deleteButtonTapped))
@@ -121,6 +134,7 @@ class ContactDetailsViewController: UIViewController {
                // updateTapContact()
               deleteTapContact()
             } else {
+                //the view is for creating a new contact
                 firstNameTextField.text = ""
                 lastNameTextField.text = ""
                 phoneNumberTextField.text = ""
@@ -130,9 +144,12 @@ class ContactDetailsViewController: UIViewController {
                //addTapContact()
             }
         }
-        
+    
+    
+    //Handle the action when the main button is tapped(save/update contacts)
         @objc func mainActionButtonTapped() {
-           let id = Int.random(in: 1...1000)
+            
+            let id = Int.random(in: 1...1000)
             let firstName = firstNameTextField.text ?? ""
             let lastName = lastNameTextField.text ?? ""
             var phoneNumber = phoneNumberTextField.text ?? ""
@@ -186,7 +203,7 @@ class ContactDetailsViewController: UIViewController {
     
     
 
-
+//Function to format the phone number to a desired pattern
     func formatPhoneNumber(_ phoneNumber: String) -> String {
             // Remove all non-numeric characters from the phone number
             let digits = phoneNumber.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
@@ -221,6 +238,8 @@ class ContactDetailsViewController: UIViewController {
 
 }
 
+
+//Extension to add an underline to the text fields
 extension UITextField {
     func useUnderline() {
         let border = CALayer()

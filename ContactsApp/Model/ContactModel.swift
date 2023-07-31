@@ -9,12 +9,14 @@ import Foundation
 
 
 class ContactModel {
-    var id: Int
+    
+    var id: Int  // Uniquie identifier for the contacts
     var firstName: String
     var lastName: String
     var phoneNumber: String?
     var email: String?
     
+    //Initialize the ContactModel with required and optional properties
     init(id: Int, firstName: String, lastName: String, phoneNumber: String? = nil, email: String? = nil) {
         self.id = id
         self.firstName = firstName
